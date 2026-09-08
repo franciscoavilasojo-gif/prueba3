@@ -2,34 +2,35 @@
 <html lang="es" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reformas Tu Hogar | Obra Nueva y Reformas Premium</title>
-    <!-- Tailwind CSS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Electro Avagon | Energía Fotovoltaica y Electricidad</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Montserrat para un look moderno y de construcción -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
     <script src="https://unpkg.com/lucide@latest"></script>
     
-    <!-- Configuración de Tailwind -->
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        neon: '#7ED957',
-                        dark: '#0A0A0A',
-                        darker: '#000000',
-                        graydark: '#171717'
+                        techblack: '#050505',
+                        techgray: '#111827',
+                        electric: '#10B981', // Verde Eléctrico
+                        solar: '#F59E0B' // Amarillo Solar
                     },
                     fontFamily: {
-                        sans: ['Montserrat', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                        tech: ['Space Grotesk', 'sans-serif'],
                     },
                     boxShadow: {
-                        'neon': '0 0 20px rgba(126, 217, 87, 0.4)',
-                        'neon-strong': '0 0 30px rgba(126, 217, 87, 0.8)',
+                        'glow-electric': '0 0 20px rgba(16, 185, 129, 0.4)',
+                        'glow-electric-strong': '0 0 35px rgba(16, 185, 129, 0.6)',
+                        'glow-solar': '0 0 20px rgba(245, 158, 11, 0.4)',
                     }
                 }
             }
@@ -37,521 +38,403 @@
     </script>
 
     <style>
-        body {
-            background-color: #000000;
-            color: #ffffff;
-            overflow-x: hidden;
+        body { background-color: #050505; color: #ffffff; overflow-x: hidden; }
+
+        /* Scrollbar Técnica */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #111827; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10B981; }
+
+        /* Fondo de Cuadrícula Animada */
+        .tech-grid {
+            background-size: 50px 50px;
+            background-image: 
+                linear-gradient(to right, rgba(16, 185, 129, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
         }
 
-        /* Ocultar scrollbar para estética limpia */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000000; }
-        ::-webkit-scrollbar-thumb { background: #333333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #7ED957; }
-
-        /* Efecto de Ruido y Grid de fondo */
-        .bg-grid {
-            background-size: 40px 40px;
-            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
-        }
-
-        /* Clases de Animación al Scroll */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .reveal-left.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
+        /* Animaciones Scroll Reveal */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
         .delay-100 { transition-delay: 100ms; }
         .delay-200 { transition-delay: 200ms; }
         .delay-300 { transition-delay: 300ms; }
-        .delay-400 { transition-delay: 400ms; }
 
-        /* Efecto Magnético (Transición suave al volver al centro) */
-        .magnetic-wrap {
-            display: inline-block;
-        }
-        .magnetic-btn {
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
-            will-change: transform;
-        }
-        
-        /* Animación continua del fondo del Hero */
-        @keyframes subtle-zoom {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        .hero-bg-anim {
-            animation: subtle-zoom 20s infinite ease-in-out;
-        }
+        /* Efecto Magnético */
+        .magnetic-wrap { display: inline-block; }
+        .magnetic-btn { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); will-change: transform; }
 
-        /* Preloader */
-        #preloader {
-            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+        /* Resplandor de Borde en Tarjetas */
+        .tech-card {
+            background: linear-gradient(180deg, rgba(17,24,39,1) 0%, rgba(5,5,5,1) 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
         }
-        .slide-up-out {
-            transform: translateY(-100%);
+        .tech-card:hover {
+            border-color: #10B981;
+            box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.1), 0 0 20px rgba(16, 185, 129, 0.2);
+            transform: translateY(-5px);
         }
     </style>
 </head>
-<body class="antialiased selection:bg-neon selection:text-black">
+<body class="antialiased selection:bg-electric selection:text-black">
 
-    <!-- Preloader -->
-    <div id="preloader" class="fixed inset-0 z-[100] bg-darker flex items-center justify-center">
-        <div class="flex flex-col items-center">
-            <i data-lucide="home" class="w-16 h-16 text-neon animate-pulse mb-4"></i>
-            <div class="text-2xl font-black tracking-widest uppercase">
-                Reformas <span class="text-neon">Tu Hogar</span>
-            </div>
-            <div class="w-48 h-1 bg-graydark mt-6 rounded overflow-hidden">
-                <div class="w-full h-full bg-neon animate-[pulse_1s_ease-in-out_infinite]" style="transform-origin: left; animation: load 1s forwards;"></div>
-            </div>
-        </div>
+    <div class="fixed inset-0 tech-grid pointer-events-none z-0"></div>
+
+    <div class="bg-solar text-black text-center py-2 px-4 text-xs md:text-sm font-tech font-bold uppercase tracking-wider relative z-50 flex items-center justify-center gap-2">
+        <i data-lucide="zap" class="w-4 h-4 fill-black"></i>
+        <span>¿Avería eléctrica urgente en Ávila? Llámanos ahora: </span>
+        <a href="tel:+34123456789" class="underline hover:no-underline ml-1">123 456 789</a>
     </div>
-    <style>@keyframes load { 0% { transform: scaleX(0); } 100% { transform: scaleX(1); } }</style>
 
-    <!-- Overlay de Grid Técnico -->
-    <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
-
-    <!-- Navegación -->
-    <nav class="fixed w-full z-50 top-0 transition-all duration-300" id="navbar">
+    <nav class="sticky w-full z-40 top-0 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-            <div class="bg-graydark/80 backdrop-blur-lg border border-white/10 rounded-full px-5 py-3 md:px-6 md:py-4 flex justify-between items-center shadow-2xl transition-all duration-300">
-                <!-- Logo -->
-                <a href="#" class="flex items-center gap-2 group">
-                    <i data-lucide="home" class="w-5 h-5 md:w-6 md:h-6 text-neon group-hover:rotate-12 transition-transform duration-300"></i>
-                    <span class="font-black text-base md:text-lg tracking-wider uppercase">Reformas<span class="text-neon">TuHogar</span></span>
+            <div class="bg-techgray/80 backdrop-blur-md border border-electric/20 rounded-2xl px-5 py-3 md:px-6 md:py-4 flex justify-between items-center shadow-lg transition-all">
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 rounded-full bg-techblack border border-electric flex items-center justify-center group-hover:shadow-glow-electric transition-all">
+                        <i data-lucide="zap" class="w-5 h-5 text-electric fill-electric"></i>
+                    </div>
+                    <span class="font-tech font-bold text-lg tracking-wider uppercase text-white">Electro<span class="text-electric">Avagon</span></span>
                 </a>
                 
-                <!-- Menú Desktop -->
-                <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide uppercase text-gray-300">
-                    <a href="#servicios" class="hover:text-neon transition-colors duration-300">Servicios</a>
-                    <a href="#valores" class="hover:text-neon transition-colors duration-300">Valores</a>
-                    <a href="#proyectos" class="hover:text-neon transition-colors duration-300">Proyectos</a>
+                <div class="hidden md:flex space-x-8 text-sm font-tech font-semibold tracking-widest uppercase text-gray-400">
+                    <a href="#fotovoltaica" class="hover:text-electric transition-colors">Fotovoltaica</a>
+                    <a href="#servicios" class="hover:text-electric transition-colors">Servicios</a>
+                    <a href="#tecnologia" class="hover:text-electric transition-colors">Tecnología</a>
                 </div>
 
-                <!-- CTA Desktop -->
                 <div class="hidden md:block magnetic-wrap">
-                    <a href="https://wa.me/34623111590" target="_blank" class="magnetic-btn bg-neon text-black px-6 py-2.5 rounded-full font-bold uppercase text-sm hover:shadow-neon transition-all duration-300">
+                    <a href="#contacto" class="magnetic-btn bg-electric/10 text-electric border border-electric px-6 py-2 rounded-lg font-tech font-bold uppercase text-sm hover:bg-electric hover:text-black transition-all">
                         Presupuesto
                     </a>
                 </div>
 
-                <!-- Botón Hamburguesa -->
-                <button id="mobile-menu-btn" class="md:hidden text-white focus:outline-none">
+                <button id="mobile-menu-btn" class="md:hidden text-electric focus:outline-none p-2">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-    <!-- Menú Móvil -->
-    <div id="mobile-menu" class="fixed inset-0 bg-darker/95 backdrop-blur-xl z-40 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="flex flex-col items-center space-y-8 text-2xl font-black uppercase tracking-widest">
-            <a href="#servicios" class="mobile-link hover:text-neon transition-colors">Servicios</a>
-            <a href="#valores" class="mobile-link hover:text-neon transition-colors">Valores</a>
-            <a href="#proyectos" class="mobile-link hover:text-neon transition-colors">Proyectos</a>
-            <a href="https://wa.me/34623111590" target="_blank" class="mobile-link text-neon mt-8 border-2 border-neon px-8 py-3 rounded-full">Contactar</a>
+    <div id="mobile-menu" class="fixed inset-0 bg-techblack/95 backdrop-blur-xl z-50 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="flex flex-col items-center space-y-8 text-2xl font-tech font-bold uppercase tracking-widest text-white">
+            <a href="#fotovoltaica" class="mobile-link hover:text-electric">Fotovoltaica</a>
+            <a href="#servicios" class="mobile-link hover:text-electric">Servicios</a>
+            <a href="#tecnologia" class="mobile-link hover:text-electric">Tecnología</a>
+            <a href="#contacto" class="mobile-link text-techblack bg-electric px-8 py-3 rounded-lg shadow-glow-electric mt-4">Contactar</a>
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden z-10">
-        <!-- Fondo Animado -->
+    <section class="relative min-h-[90vh] flex items-center justify-center pt-10 pb-20 overflow-hidden z-10">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80" alt="Casa moderna" class="w-full h-full object-cover hero-bg-anim opacity-40">
-            <div class="absolute inset-0 bg-gradient-to-b from-darker/50 via-darker/80 to-darker"></div>
+            <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&q=80" alt="Paneles Solares" class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-b from-techblack/60 via-techblack/80 to-techblack"></div>
         </div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 w-full text-center">
-            <div class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full border border-neon/30 bg-neon/10 backdrop-blur-sm mb-6 md:mb-8 reveal">
-                <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
-                <span class="text-neon text-[10px] md:text-xs font-bold uppercase tracking-widest text-center">Obra nueva y reformas llave en mano</span>
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-electric/30 bg-electric/10 backdrop-blur-sm mb-8 reveal">
+                <span class="w-2 h-2 rounded-full bg-electric animate-ping"></span>
+                <span class="text-electric text-[10px] md:text-xs font-tech font-bold uppercase tracking-widest">Ávila y alrededores</span>
             </div>
             
-            <h1 class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-tight mb-6 reveal delay-100 tracking-tighter">
-                Construimos el hogar <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon to-green-300">de tus sueños</span>
+            <h1 class="text-5xl sm:text-6xl md:text-7xl font-tech font-black uppercase leading-tight mb-6 reveal delay-100 tracking-tight">
+                Toma el control de <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-electric to-emerald-200">Tu Energía</span>
             </h1>
             
-            <p class="text-base md:text-xl text-gray-400 font-medium mb-10 md:mb-12 max-w-3xl mx-auto reveal delay-200 px-2 md:px-0">
-                Soluciones integrales para los más exigentes. Transformamos tus ideas en espacios reales con máxima calidad, compromiso y un diseño impecable.
+            <p class="text-base md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto reveal delay-200">
+                Expertos en instalaciones fotovoltaicas y soluciones eléctricas. Transiciónate al autoconsumo, genera tu propia luz y ahorra desde el primer día con la mejor tecnología.
             </p>
             
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 reveal delay-300">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal delay-300">
                 <div class="magnetic-wrap w-full sm:w-auto">
-                    <a href="https://wa.me/34623111590" target="_blank" class="magnetic-btn w-full sm:w-auto flex items-center justify-center gap-3 bg-neon text-black px-8 py-4 rounded-full font-bold uppercase tracking-wide hover:shadow-neon-strong transition-shadow duration-300">
-                        <i data-lucide="message-circle" class="w-5 h-5"></i>
-                        Hacer realidad mi proyecto
+                    <a href="#contacto" class="magnetic-btn w-full sm:w-auto flex items-center justify-center gap-3 bg-electric text-black px-8 py-4 rounded-xl font-tech font-bold uppercase tracking-wide hover:shadow-glow-electric-strong transition-all duration-300">
+                        <i data-lucide="sun" class="w-5 h-5"></i>
+                        Estudio Solar Gratuito
                     </a>
                 </div>
                 <div class="magnetic-wrap w-full sm:w-auto">
-                    <a href="mailto:macarpehogar@gmail.com" class="magnetic-btn w-full sm:w-auto flex items-center justify-center gap-3 border-2 border-white/20 hover:border-neon px-8 py-4 rounded-full font-bold uppercase tracking-wide hover:bg-neon/10 transition-colors duration-300">
-                        <i data-lucide="mail" class="w-5 h-5"></i>
-                        Enviar Correo
+                    <a href="tel:+34123456789" class="magnetic-btn w-full sm:w-auto flex items-center justify-center gap-3 border border-solar/50 text-solar bg-solar/5 px-8 py-4 rounded-xl font-tech font-bold uppercase tracking-wide hover:bg-solar hover:text-black hover:shadow-glow-solar transition-all duration-300">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                        Reparar Avería
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Cinturón de Valores -->
-    <section id="valores" class="py-20 border-b border-white/5 relative z-10 bg-darker">
+    <section class="py-12 border-y border-white/5 bg-techgray/30 backdrop-blur-sm relative z-10">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
-                <div class="flex flex-col items-center text-center reveal">
-                    <div class="w-16 h-16 rounded-2xl bg-graydark border border-white/10 flex items-center justify-center mb-4 group-hover:border-neon transition-colors">
-                        <i data-lucide="pen-tool" class="w-8 h-8 text-neon"></i>
-                    </div>
-                    <h3 class="font-bold uppercase tracking-wide text-sm mb-2">Diseño y<br>Planificación</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
+                <div class="flex flex-col items-center pt-4 md:pt-0 reveal">
+                    <i data-lucide="shield-check" class="w-10 h-10 text-electric mb-3"></i>
+                    <h3 class="font-tech font-bold uppercase text-sm mb-1">Instaladores Autorizados</h3>
+                    <p class="text-xs text-gray-500">Certificación y seguridad legal.</p>
                 </div>
-                <div class="flex flex-col items-center text-center reveal delay-100">
-                    <div class="w-16 h-16 rounded-2xl bg-graydark border border-white/10 flex items-center justify-center mb-4">
-                        <i data-lucide="hard-hat" class="w-8 h-8 text-neon"></i>
-                    </div>
-                    <h3 class="font-bold uppercase tracking-wide text-sm mb-2">Construcción<br>de Calidad</h3>
+                <div class="flex flex-col items-center pt-8 md:pt-0 reveal delay-100">
+                    <i data-lucide="cpu" class="w-10 h-10 text-electric mb-3"></i>
+                    <h3 class="font-tech font-bold uppercase text-sm mb-1">Tecnología de Vanguardia</h3>
+                    <p class="text-xs text-gray-500">Inversores y paneles top ventas.</p>
                 </div>
-                <div class="flex flex-col items-center text-center reveal delay-200">
-                    <div class="w-16 h-16 rounded-2xl bg-graydark border border-white/10 flex items-center justify-center mb-4">
-                        <i data-lucide="settings" class="w-8 h-8 text-neon"></i>
-                    </div>
-                    <h3 class="font-bold uppercase tracking-wide text-sm mb-2">Soluciones<br>a Medida</h3>
-                </div>
-                <div class="flex flex-col items-center text-center reveal delay-300">
-                    <div class="w-16 h-16 rounded-2xl bg-graydark border border-white/10 flex items-center justify-center mb-4">
-                        <i data-lucide="shield-check" class="w-8 h-8 text-neon"></i>
-                    </div>
-                    <h3 class="font-bold uppercase tracking-wide text-sm mb-2">Compromiso<br>y Garantía</h3>
+                <div class="flex flex-col items-center pt-8 md:pt-0 reveal delay-200">
+                    <i data-lucide="trending-down" class="w-10 h-10 text-electric mb-3"></i>
+                    <h3 class="font-tech font-bold uppercase text-sm mb-1">Ahorro Garantizado</h3>
+                    <p class="text-xs text-gray-500">Amortización rápida de inversión.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Servicios Premium -->
-    <section id="servicios" class="py-20 lg:py-32 relative z-10 bg-darker">
+    <section id="servicios" class="py-24 relative z-10">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-12 lg:mb-20">
-                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 reveal-left">
-                    Servicios <span class="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 to-white">Premium</span>
+            <div class="mb-16">
+                <h2 class="text-3xl md:text-5xl font-tech font-black uppercase tracking-tight mb-4 reveal">
+                    Nuestras <span class="text-electric">Soluciones</span>
                 </h2>
-                <div class="w-24 h-2 bg-neon reveal delay-100"></div>
+                <p class="text-gray-400 reveal delay-100">Dominamos tanto la energía del futuro como la electricidad tradicional.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
-                <!-- Servicio 1 -->
-                <div class="group relative bg-graydark border border-white/10 rounded-2xl p-6 lg:p-8 hover:border-neon transition-colors duration-500 reveal hover:-translate-y-2">
-                    <div class="absolute inset-0 bg-neon/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500"></div>
-                    <i data-lucide="building" class="w-12 h-12 text-neon mb-6"></i>
-                    <h3 class="text-2xl font-bold uppercase mb-4">Obra Nueva</h3>
-                    <p class="text-gray-400 font-medium leading-relaxed mb-6">
-                        Construcción desde cero. Creamos estructuras sólidas con visión de futuro, utilizando los mejores materiales del mercado.
-                    </p>
-                    <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon group-hover:bg-neon group-hover:text-black transition-all">
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="tech-card rounded-2xl p-8 reveal">
+                    <div class="w-14 h-14 rounded-lg bg-electric/10 flex items-center justify-center mb-6 border border-electric/30">
+                        <i data-lucide="sun-medium" class="w-7 h-7 text-electric"></i>
                     </div>
+                    <h3 class="text-xl font-tech font-bold uppercase mb-3">Energía Fotovoltaica</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">
+                        Instalaciones aisladas y de red. Configuramos inversores de última generación (Huawei, etc.) para máxima eficiencia.
+                    </p>
+                    <ul class="space-y-2 text-xs font-semibold text-gray-300">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-electric"></i> Paneles solares</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-electric"></i> Baterías de almacenamiento</li>
+                    </ul>
                 </div>
 
-                <!-- Servicio 2 -->
-                <div class="group relative bg-graydark border border-white/10 rounded-2xl p-6 lg:p-8 hover:border-neon transition-colors duration-500 reveal delay-100 hover:-translate-y-2">
-                    <div class="absolute inset-0 bg-neon/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500"></div>
-                    <i data-lucide="key" class="w-12 h-12 text-neon mb-6"></i>
-                    <h3 class="text-2xl font-bold uppercase mb-4">Llave en Mano</h3>
-                    <p class="text-gray-400 font-medium leading-relaxed mb-6">
-                        Reformas integrales donde nos encargamos de absolutamente todo el proceso, para que tú solo disfrutes del resultado final.
-                    </p>
-                    <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon group-hover:bg-neon group-hover:text-black transition-all">
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                <div class="tech-card rounded-2xl p-8 reveal delay-100">
+                    <div class="w-14 h-14 rounded-lg bg-electric/10 flex items-center justify-center mb-6 border border-electric/30">
+                        <i data-lucide="plug-2" class="w-7 h-7 text-electric"></i>
                     </div>
+                    <h3 class="text-xl font-tech font-bold uppercase mb-3">Instalaciones Eléctricas</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">
+                        Soluciones para obra nueva, reformas integrales y actualizaciones de cuadros eléctricos bajo normativa.
+                    </p>
+                    <ul class="space-y-2 text-xs font-semibold text-gray-300">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-electric"></i> Cableado estructurado</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-electric"></i> Iluminación LED</li>
+                    </ul>
                 </div>
 
-                <!-- Servicio 3 -->
-                <div class="group relative bg-graydark border border-white/10 rounded-2xl p-6 lg:p-8 hover:border-neon transition-colors duration-500 reveal delay-200 hover:-translate-y-2">
-                    <div class="absolute inset-0 bg-neon/5 opacity-0 group-hover:opacity-100 rounded-2xl transition-opacity duration-500"></div>
-                    <i data-lucide="sofa" class="w-12 h-12 text-neon mb-6"></i>
-                    <h3 class="text-2xl font-bold uppercase mb-4">Interiorismo</h3>
-                    <p class="text-gray-400 font-medium leading-relaxed mb-6">
-                        Diseño de espacios únicos y personalizados. Optimizamos cada rincón combinando estética moderna y máxima funcionalidad.
-                    </p>
-                    <div class="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center group-hover:border-neon group-hover:bg-neon group-hover:text-black transition-all">
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                <div class="tech-card rounded-2xl p-8 reveal delay-200 border-solar/30">
+                    <div class="w-14 h-14 rounded-lg bg-solar/10 flex items-center justify-center mb-6 border border-solar/50">
+                        <i data-lucide="triangle-alert" class="w-7 h-7 text-solar"></i>
                     </div>
+                    <h3 class="text-xl font-tech font-bold uppercase mb-3">Averías y Mantenimiento</h3>
+                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">
+                        Detección rápida de cortocircuitos, fallos en inversores solares y reparaciones urgentes para que no te quedes sin luz.
+                    </p>
+                    <ul class="space-y-2 text-xs font-semibold text-gray-300">
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-solar"></i> Servicio Rápido</li>
+                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-solar"></i> Diagnóstico de inversores</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Galería Dinámica -->
-    <section id="proyectos" class="py-20 lg:py-32 relative z-10 bg-dark">
+    <section id="tecnologia" class="py-24 relative z-10 border-y border-white/5 bg-techgray/50">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12 lg:mb-20">
-                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 reveal">
-                    Proyectos <span class="text-neon">Encaminados</span>
-                </h2>
-                <p class="text-gray-400 font-medium reveal delay-100">Echa un vistazo a la calidad de nuestros últimos trabajos.</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Foto 1 -->
-                <div class="relative overflow-hidden group h-[300px] sm:h-[400px] rounded-xl reveal">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80" alt="Fachada Obra Nueva" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8">
-                        <span class="text-neon font-bold uppercase tracking-widest text-xs mb-2">Obra Nueva</span>
-                        <h3 class="text-xl md:text-2xl font-bold">Vivienda Unifamiliar</h3>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-electric/30 bg-electric/10 mb-6">
+                        <i data-lucide="lightbulb" class="w-4 h-4 text-electric"></i>
+                        <span class="text-electric text-xs font-tech font-bold uppercase tracking-widest">Transparencia Total</span>
                     </div>
+                    <h2 class="text-3xl md:text-5xl font-tech font-black uppercase tracking-tight mb-6 leading-tight">
+                        Tecnología <span class="text-electric">Sin Secretos</span>
+                    </h2>
+                    <p class="text-gray-400 mb-6 leading-relaxed">
+                        No instales a ciegas. A diferencia de otras empresas, en Electro Avagon te explicamos paso a paso tu instalación. 
+                    </p>
+                    <p class="text-gray-400 mb-8 leading-relaxed">
+                        ¿Cómo funciona una instalación aislada? ¿Qué significa la luz de tu inversor Huawei? Queremos que entiendas exactamente cómo tu casa genera energía y cómo estás ahorrando dinero.
+                    </p>
+                    <a href="https://instagram.com/electroavagon" target="_blank" class="inline-flex items-center gap-3 text-electric font-tech font-bold uppercase text-sm hover:text-white transition-colors">
+                        Ver nuestros tutoriales en Instagram <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
                 </div>
-                <!-- Foto 2 -->
-                <div class="relative overflow-hidden group h-[300px] sm:h-[400px] rounded-xl reveal delay-100">
-                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80" alt="Reforma Interior" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8">
-                        <span class="text-neon font-bold uppercase tracking-widest text-xs mb-2">Reforma Integral</span>
-                        <h3 class="text-xl md:text-2xl font-bold">Salón Moderno</h3>
-                    </div>
-                </div>
-                <!-- Foto 3 -->
-                <div class="relative overflow-hidden group h-[300px] sm:h-[400px] rounded-xl reveal delay-200">
-                    <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80" alt="Reforma Cocina" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-6 md:p-8">
-                        <span class="text-neon font-bold uppercase tracking-widest text-xs mb-2">Llave en mano</span>
-                        <h3 class="text-xl md:text-2xl font-bold">Cocina Premium</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sección Contacto y Mapa -->
-    <section id="contacto" class="py-20 lg:py-32 relative z-10 bg-darker border-t border-white/5">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-12 lg:mb-20">
-                <h2 class="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-4 reveal">
-                    Solicita tu <span class="text-neon">Presupuesto</span>
-                </h2>
-                <p class="text-gray-400 font-medium reveal delay-100">Rellena el formulario y te responderemos por WhatsApp al instante.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-10 lg:gap-12">
-                <!-- Formulario a WhatsApp -->
-                <div class="bg-graydark border border-white/10 p-6 md:p-10 rounded-2xl reveal relative overflow-hidden">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-neon/10 blur-[50px] rounded-full pointer-events-none"></div>
-                    <form id="wa-form" class="relative z-10 flex flex-col gap-6">
+                <div class="relative reveal delay-100 h-[400px] rounded-2xl overflow-hidden border border-white/10 group">
+                    <img src="https://images.unsplash.com/photo-1592833159155-c62df1b65634?auto=format&fit=crop&q=80" alt="Instalación Inversor Solar" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-techblack/80 via-transparent to-electric/20 mix-blend-multiply"></div>
+                    
+                    <div class="absolute bottom-6 left-6 bg-techblack/90 backdrop-blur border border-electric/30 p-4 rounded-xl flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full border-[3px] border-electric border-t-transparent animate-spin"></div>
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Nombre completo</label>
-                            <input type="text" id="wa-nombre" required class="w-full bg-darker border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon focus:ring-1 focus:ring-neon transition-all" placeholder="Ej. Juan Pérez">
+                            <div class="text-xs text-electric font-tech uppercase">Rendimiento Sistema</div>
+                            <div class="text-xl font-bold font-tech">98.5% Eficiencia</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto" class="py-24 relative z-10">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-electric/5 via-techblack to-techblack pointer-events-none"></div>
+        
+        <div class="max-w-4xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-5xl font-tech font-black uppercase tracking-tight mb-4">
+                    Inicia tu <span class="text-electric">Transición</span>
+                </h2>
+                <p class="text-gray-400">Pide tu presupuesto para energía solar o consúltanos tus averías eléctricas.</p>
+            </div>
+
+            <div class="bg-techgray/80 backdrop-blur-xl border border-electric/20 p-8 md:p-12 rounded-3xl reveal delay-100 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-electric/10 rounded-full blur-[80px] pointer-events-none"></div>
+                
+                <form id="wa-form" class="relative z-10 flex flex-col gap-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs font-tech font-bold uppercase tracking-widest text-gray-400 mb-2">Nombre / Empresa</label>
+                            <input type="text" id="nombre" required class="w-full bg-techblack/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Tipo de Proyecto</label>
-                            <select id="wa-servicio" required class="w-full bg-darker border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon focus:ring-1 focus:ring-neon transition-all appearance-none">
+                            <label class="block text-xs font-tech font-bold uppercase tracking-widest text-gray-400 mb-2">Motivo de contacto</label>
+                            <select id="servicio" required class="w-full bg-techblack/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all appearance-none">
                                 <option value="" disabled selected>Selecciona una opción...</option>
-                                <option value="Obra Nueva">Obra Nueva</option>
-                                <option value="Reforma Integral">Reforma Integral</option>
-                                <option value="Interiorismo">Interiorismo / Decoración</option>
-                                <option value="Otro">Otro</option>
+                                <option value="Instalación Fotovoltaica">Instalación Fotovoltaica (Placas)</option>
+                                <option value="Avería Inversor/Batería">Avería Inversor/Batería Solar</option>
+                                <option value="Avería Eléctrica General">Avería Eléctrica General</option>
+                                <option value="Instalación Eléctrica Nueva">Instalación Eléctrica Nueva</option>
                             </select>
                         </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Detalles del proyecto</label>
-                            <textarea id="wa-mensaje" required rows="4" class="w-full bg-darker border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon focus:ring-1 focus:ring-neon transition-all resize-none" placeholder="Cuéntanos un poco sobre tu idea..."></textarea>
-                        </div>
-                        <button type="submit" class="w-full bg-neon text-black font-black uppercase tracking-widest py-4 rounded-lg hover:shadow-neon transition-all duration-300 flex items-center justify-center gap-2 mt-2">
-                            <i data-lucide="send" class="w-5 h-5"></i>
-                            Enviar por WhatsApp
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Mapa y Datos Directos -->
-                <div class="reveal delay-100 flex flex-col gap-8">
-                    <!-- Mapa en Modo Oscuro -->
-                    <div class="w-full h-64 md:h-full min-h-[300px] rounded-2xl overflow-hidden border border-white/10 relative">
-                        <!-- Filtro CSS para invertir colores del mapa y hacerlo Dark Mode -->
-                        <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.669894418659!2d-3.7058223!3d40.4158474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI0JzU3LjEiTiAzwrA0MicyMS4wIlc!5e0!3m2!1ses!2ses!4v1625658390885!5m2!1ses!2ses" 
-                            class="absolute inset-0 w-full h-full border-0" 
-                            style="filter: invert(90%) hue-rotate(180deg) contrast(100%);"
-                            allowfullscreen="" 
-                            loading="lazy">
-                        </iframe>
                     </div>
-                </div>
+                    <div>
+                        <label class="block text-xs font-tech font-bold uppercase tracking-widest text-gray-400 mb-2">Describe tu proyecto o avería</label>
+                        <textarea id="mensaje" required rows="4" class="w-full bg-techblack/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all resize-none" placeholder="Ej: Me gustaría un estudio para poner placas en un tejado en Ávila..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-electric text-black font-tech font-bold uppercase tracking-widest py-4 rounded-xl hover:shadow-glow-electric transition-all duration-300 flex items-center justify-center gap-2 mt-4">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                        Enviar solicitud al WhatsApp
+                    </button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- Footer Completo -->
-    <footer class="relative z-10 bg-dark pt-16 lg:pt-20 pb-10 border-t border-white/5 overflow-hidden">
-        <!-- Elemento decorativo de fondo -->
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon/5 rounded-full blur-[120px] pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 lg:gap-12 relative z-10 mb-12 lg:mb-16 reveal">
-            <!-- Columna 1: Marca -->
-            <div class="md:col-span-2">
-                <a href="#" class="flex items-center gap-2 mb-6">
-                    <i data-lucide="home" class="w-8 h-8 text-neon"></i>
-                    <span class="font-black text-2xl tracking-wider uppercase">Reformas<span class="text-neon">TuHogar</span></span>
+    <footer class="bg-techgray border-t border-white/5 pt-16 pb-8 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 reveal">
+            <div>
+                <a href="#" class="flex items-center gap-2 mb-4">
+                    <i data-lucide="zap" class="w-6 h-6 text-electric fill-electric"></i>
+                    <span class="font-tech font-bold text-xl tracking-wider uppercase text-white">Electro<span class="text-electric">Avagon</span></span>
                 </a>
-                <p class="text-gray-400 font-medium text-sm max-w-sm mb-8 leading-relaxed">
-                    Construcción, obra nueva y reformas llave en mano para los más exigentes. El hogar de tus sueños, hecho realidad con profesionalidad y garantías.
+                <p class="text-gray-400 text-sm mb-6 max-w-sm">
+                    Soluciones eléctricas y solares. Transparencia, calidad técnica y tecnología de vanguardia para Ávila y alrededores.
                 </p>
                 <div class="flex gap-4">
-                    <a href="https://instagram.com/reformas_tu_hogar66" target="_blank" class="w-10 h-10 rounded-full bg-graydark border border-white/10 flex items-center justify-center hover:bg-neon hover:text-black hover:border-neon transition-all duration-300">
-                        <i data-lucide="instagram" class="w-4 h-4"></i>
-                    </a>
-                    <a href="https://wa.me/34623111590" target="_blank" class="w-10 h-10 rounded-full bg-graydark border border-white/10 flex items-center justify-center hover:bg-neon hover:text-black hover:border-neon transition-all duration-300">
-                        <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    <a href="https://instagram.com/electroavagon" target="_blank" class="w-10 h-10 rounded-lg bg-techblack border border-white/10 flex items-center justify-center hover:bg-electric hover:text-black hover:border-electric transition-all">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
                     </a>
                 </div>
             </div>
             
-            <!-- Columna 2: Enlaces -->
             <div>
-                <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6">Navegación</h4>
-                <ul class="space-y-4 text-gray-400 font-medium text-sm">
-                    <li><a href="#servicios" class="hover:text-neon transition-colors">Nuestros Servicios</a></li>
-                    <li><a href="#valores" class="hover:text-neon transition-colors">Por qué elegirnos</a></li>
-                    <li><a href="#proyectos" class="hover:text-neon transition-colors">Proyectos Encaminados</a></li>
-                    <li><a href="#contacto" class="hover:text-neon transition-colors">Pedir Presupuesto</a></li>
+                <h4 class="text-white font-tech font-bold uppercase tracking-widest text-sm mb-6">Servicios</h4>
+                <ul class="space-y-3 text-gray-400 text-sm">
+                    <li><a href="#" class="hover:text-electric transition-colors">Energía Fotovoltaica</a></li>
+                    <li><a href="#" class="hover:text-electric transition-colors">Instalaciones Aisladas</a></li>
+                    <li><a href="#" class="hover:text-electric transition-colors">Electricidad General</a></li>
+                    <li><a href="#" class="hover:text-electric transition-colors">Reparación de Averías</a></li>
                 </ul>
             </div>
 
-            <!-- Columna 3: Contacto -->
             <div>
-                <h4 class="text-white font-bold uppercase tracking-widest text-sm mb-6">Contacto</h4>
-                <ul class="space-y-4 text-gray-400 font-medium text-sm">
+                <h4 class="text-white font-tech font-bold uppercase tracking-widest text-sm mb-6">Contacto Directo</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
                     <li>
-                        <a href="tel:+34623111590" class="flex items-center gap-3 hover:text-neon transition-colors">
-                            <i data-lucide="phone" class="w-4 h-4 text-neon"></i>
-                            623 11 15 90
+                        <a href="tel:+34123456789" class="flex items-center gap-3 hover:text-electric transition-colors">
+                            <i data-lucide="phone" class="w-4 h-4 text-electric"></i>
+                            +34 123 456 789
                         </a>
                     </li>
                     <li>
-                        <a href="mailto:macarpehogar@gmail.com" class="flex items-center gap-3 hover:text-neon transition-colors">
-                            <i data-lucide="mail" class="w-4 h-4 text-neon"></i>
-                            macarpehogar@gmail.com
+                        <a href="mailto:info@electroavagon.com" class="flex items-center gap-3 hover:text-electric transition-colors">
+                            <i data-lucide="mail" class="w-4 h-4 text-electric"></i>
+                            info@electroavagon.com
                         </a>
                     </li>
                     <li class="flex items-start gap-3">
-                        <i data-lucide="map-pin" class="w-4 h-4 text-neon mt-1"></i>
-                        <span>Atendemos proyectos a nivel nacional / local.</span>
+                        <i data-lucide="map-pin" class="w-4 h-4 text-electric mt-1"></i>
+                        <span>Servicio en Ávila y alrededores.</span>
                     </li>
                 </ul>
             </div>
         </div>
         
-        <div class="max-w-7xl mx-auto px-6 border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 reveal delay-100">
-            <div class="text-gray-600 text-xs font-bold uppercase tracking-widest">
-                &copy; 2026 Reformas Tu Hogar. Todos los derechos reservados.
-            </div>
-            <div class="text-gray-600 text-xs font-bold uppercase tracking-widest flex gap-4">
-                <a href="#" class="hover:text-white transition-colors">Aviso Legal</a>
+        <div class="max-w-7xl mx-auto px-6 border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-tech font-bold uppercase tracking-widest text-gray-600 reveal delay-100">
+            <div>© 2026 Electro Avagon. Todos los derechos reservados.</div>
+            <div class="flex gap-4">
                 <a href="#" class="hover:text-white transition-colors">Privacidad</a>
+                <a href="#" class="hover:text-white transition-colors">Aviso Legal</a>
             </div>
         </div>
     </footer>
 
-    <!-- Botón Flotante WhatsApp -->
-    <a href="https://wa.me/34623111590" target="_blank" class="fixed bottom-6 right-6 z-[60] bg-[#25D366] text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.5)] hover:scale-110 transition-transform duration-300 flex items-center justify-center animate-pulse">
+    <a href="https://wa.me/34123456789" target="_blank" class="fixed bottom-6 right-6 z-[60] bg-[#25D366] text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform duration-300 flex items-center justify-center">
         <i data-lucide="message-circle" class="w-8 h-8"></i>
     </a>
 
-    <!-- Lógica de Animaciones y UI -->
     <script>
-        // Inicializar Iconos
         lucide.createIcons();
 
-        // 1. Preloader
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            setTimeout(() => {
-                preloader.classList.add('slide-up-out');
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                    initRevealObserver(); // Iniciar animaciones al terminar carga
-                }, 800);
-            }, 1000);
-        });
+        // Scroll Reveal
+        const reveals = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries, obs) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    obs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+        reveals.forEach(el => observer.observe(el));
 
-        // 2. Animaciones al Scroll (Intersection Observer)
-        function initRevealObserver() {
-            const reveals = document.querySelectorAll('.reveal, .reveal-left');
-            const options = {
-                threshold: 0.15,
-                rootMargin: "0px 0px -50px 0px"
-            };
-            const observer = new IntersectionObserver((entries, obs) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        obs.unobserve(entry.target);
-                    }
-                });
-            }, options);
-            
-            reveals.forEach(el => observer.observe(el));
-        }
-
-        // 3. Efecto Botones Magnéticos (Solo en Desktop)
+        // Magnetic Buttons (Desktop)
         if (window.innerWidth >= 768) {
             const magnetics = document.querySelectorAll('.magnetic-btn');
-            
             magnetics.forEach(btn => {
                 btn.addEventListener('mousemove', function(e) {
                     const rect = this.getBoundingClientRect();
-                    const h = rect.width / 2;
-                    const w = rect.height / 2;
-                    const x = e.clientX - rect.left - h;
-                    const y = e.clientY - rect.top - w;
-                    
-                    // Mueve el botón suavemente hacia el ratón
-                    this.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                    const x = (e.clientX - rect.left - rect.width/2) * 0.2;
+                    const y = (e.clientY - rect.top - rect.height/2) * 0.2;
+                    this.style.transform = `translate(${x}px, ${y}px)`;
                 });
-                
-                btn.addEventListener('mouseleave', function(e) {
-                    // Retorna al centro
+                btn.addEventListener('mouseleave', function() {
                     this.style.transform = `translate(0px, 0px)`;
                 });
             });
         }
 
-        // 4. Navbar estilo Glassmorphism al hacer scroll
+        // Navbar Glassmorphism
         const navbar = document.getElementById('navbar');
-        const navInner = navbar.querySelector('div > div'); // Selecciona la píldora interior
-        
+        const navInner = navbar.querySelector('div > div');
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                navInner.classList.replace('py-3', 'py-2');
-                navInner.classList.replace('md:py-4', 'md:py-3');
-                navInner.classList.add('bg-darker/95');
-                navInner.classList.remove('bg-graydark/80');
+                navInner.classList.replace('md:py-4', 'md:py-2');
+                navInner.classList.replace('bg-techgray/80', 'bg-techblack/90');
             } else {
-                navInner.classList.replace('py-2', 'py-3');
-                navInner.classList.replace('md:py-3', 'md:py-4');
-                navInner.classList.add('bg-graydark/80');
-                navInner.classList.remove('bg-darker/95');
+                navInner.classList.replace('md:py-2', 'md:py-4');
+                navInner.classList.replace('bg-techblack/90', 'bg-techgray/80');
             }
         });
 
-        // 5. Menú Móvil
+        // Menú Móvil
         const menuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = menuBtn.querySelector('i');
         const mobileLinks = document.querySelectorAll('.mobile-link');
         let isMenuOpen = false;
 
@@ -560,33 +443,27 @@
             if (isMenuOpen) {
                 mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
                 mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
-                menuIcon.setAttribute('data-lucide', 'x');
-                lucide.createIcons();
                 document.body.style.overflow = 'hidden';
             } else {
                 mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
                 mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-                menuIcon.setAttribute('data-lucide', 'menu');
-                lucide.createIcons();
                 document.body.style.overflow = '';
             }
         }
-
         menuBtn.addEventListener('click', toggleMenu);
         mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
 
-        // 6. Lógica del Formulario a WhatsApp
+        // Formulario WhatsApp
         const waForm = document.getElementById('wa-form');
         if(waForm) {
             waForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-                const nombre = document.getElementById('wa-nombre').value;
-                const servicio = document.getElementById('wa-servicio').value;
-                const mensaje = document.getElementById('wa-mensaje').value;
+                const nombre = document.getElementById('nombre').value;
+                const servicio = document.getElementById('servicio').value;
+                const mensaje = document.getElementById('mensaje').value;
                 
-                const textoFinal = `¡Hola Reformas Tu Hogar! 👋\n\nSoy *${nombre}* y estoy interesado/a en un proyecto de *${servicio}*.\n\n*Detalles:*\n${mensaje}`;
-                const url = `https://wa.me/34623111590?text=${encodeURIComponent(textoFinal)}`;
-                
+                const textoFinal = `⚡ ¡Hola Electro Avagon!\n\nSoy *${nombre}*.\nOs escribo por motivo de: *${servicio}*.\n\n*Mensaje:*\n${mensaje}`;
+                const url = `https://wa.me/34123456789?text=${encodeURIComponent(textoFinal)}`;
                 window.open(url, '_blank');
             });
         }
