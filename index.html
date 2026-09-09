@@ -1,472 +1,581 @@
 <!DOCTYPE html>
 <html lang="es" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>Electro Avagon | Energía Fotovoltaica y Electricidad</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
-    
-    <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        techblack: '#050505',
-                        techgray: '#111827',
-                        electric: '#10B981', // Verde Eléctrico
-                        solar: '#F59E0B' // Amarillo Solar
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        tech: ['Space Grotesk', 'sans-serif'],
-                    },
-                    boxShadow: {
-                        'glow-electric': '0 0 20px rgba(16, 185, 129, 0.4)',
-                        'glow-electric-strong': '0 0 35px rgba(16, 185, 129, 0.6)',
-                        'glow-solar': '0 0 20px rgba(245, 158, 11, 0.4)',
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reformas Tu Hogar | Obra Nueva y Reformas Premium</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+<script src="https://assets.calendly.com/assets/external/widget.js" defer></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: { neon:'#7ED957', dark:'#0A0A0A', darker:'#000000', graydark:'#171717' },
+        fontFamily: { sans: ['Montserrat','sans-serif'] },
+        boxShadow: { neon:'0 0 20px rgba(126,217,87,.4)', 'neon-strong':'0 0 30px rgba(126,217,87,.8)' }
+      }
+    }
+  }
+</script>
+<style>
+  body{background:#000;color:#fff;overflow-x:hidden;}
+  ::-webkit-scrollbar{width:8px;}
+  ::-webkit-scrollbar-track{background:#000;}
+  ::-webkit-scrollbar-thumb{background:#333;border-radius:4px;}
+  ::-webkit-scrollbar-thumb:hover{background:#7ED957;}
 
-    <style>
-        body { background-color: #050505; color: #ffffff; overflow-x: hidden; }
+  .reveal{opacity:0;transform:translateY(50px);transition:all 1s cubic-bezier(.16,1,.3,1);}
+  .reveal.active{opacity:1;transform:translateY(0);}
+  .delay-100{transition-delay:.1s;} .delay-200{transition-delay:.2s;} .delay-300{transition-delay:.3s;} .delay-400{transition-delay:.4s;}
 
-        /* Scrollbar Técnica */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #111827; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #10B981; }
+  /* 1. CINTA SUPERIOR ARREGLADA (Movimiento continuo perfecto) */
+  .tape{
+    background:#0A0A0A;
+    border-top:1px solid rgba(126,217,87,.25);
+    border-bottom:1px solid rgba(126,217,87,.25);
+    overflow:hidden;
+    display:flex;
+    white-space:nowrap;
+    -webkit-mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);
+    mask-image:linear-gradient(90deg,transparent,black 8%,black 92%,transparent);
+  }
+  .tape-inner{
+    display:flex;
+    align-items:center;
+    flex-shrink: 0;
+    animation:tapeScroll 20s linear infinite;
+  }
+  @keyframes tapeScroll{0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+  .tape-dot{width:5px;height:5px;border-radius:50%;background:#7ED957;display:inline-block;margin:0 22px;vertical-align:middle;}
 
-        /* Fondo de Cuadrícula Animada */
-        .tech-grid {
-            background-size: 50px 50px;
-            background-image: 
-                linear-gradient(to right, rgba(16, 185, 129, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(16, 185, 129, 0.05) 1px, transparent 1px);
-            mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
-            -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 100%);
-        }
+  .word-stagger span{display:inline-block;opacity:0;transform:translateY(30px) rotate(3deg);animation:wordIn .7s cubic-bezier(.16,1,.3,1) forwards;}
+  @keyframes wordIn{to{opacity:1;transform:translateY(0) rotate(0deg);}}
 
-        /* Animaciones Scroll Reveal */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
+  /* Servicios lista expandible gigante */
+  .svc-row{border-top:1px solid rgba(255,255,255,.1);cursor:pointer;transition:background .3s ease;}
+  .svc-row:last-child{border-bottom:1px solid rgba(255,255,255,.1);}
+  .svc-row:hover{background:rgba(126,217,87,.04);}
+  .svc-num{font-variant-numeric:tabular-nums;-webkit-text-stroke:1px rgba(255,255,255,.25);color:transparent;transition: all 0.3s ease;}
+  .svc-row:hover .svc-num{color:#7ED957;-webkit-text-stroke:0; transform: scale(1.1);}
+  .svc-arrow{transition:transform .35s cubic-bezier(.16,1,.3,1);}
+  .svc-row:hover .svc-arrow{transform:translateX(10px) rotate(-45deg);}
 
-        /* Efecto Magnético */
-        .magnetic-wrap { display: inline-block; }
-        .magnetic-btn { transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); will-change: transform; }
+  /* Galería a sangre con número */
+  .bleed-item{position:relative;overflow:hidden;}
+  .bleed-item img{transition:transform 1.1s cubic-bezier(.16,1,.3,1);}
+  .bleed-item:hover img{transform:scale(1.06);}
+  .bleed-num{font-size:9rem;line-height:1;-webkit-text-stroke:1.5px rgba(255,255,255,.5);color:transparent;position:absolute;}
+  @media(max-width:640px){.bleed-num{font-size:5rem;}}
 
-        /* Resplandor de Borde en Tarjetas */
-        .tech-card {
-            background: linear-gradient(180deg, rgba(17,24,39,1) 0%, rgba(5,5,5,1) 100%);
-            border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s ease;
-        }
-        .tech-card:hover {
-            border-color: #10B981;
-            box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.1), 0 0 20px rgba(16, 185, 129, 0.2);
-            transform: translateY(-5px);
-        }
-    </style>
+  /* Reseñas carrusel horizontal con snap + Animación hover */
+  .review-track{scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+  .review-track::-webkit-scrollbar{display:none;}
+  .review-card{scroll-snap-align:start;flex:0 0 85%; transition: transform 0.4s ease, box-shadow 0.4s ease;}
+  .review-card:hover {transform: translateY(-8px); box-shadow: 0 10px 30px -10px rgba(126,217,87,.2);}
+  @media(min-width:640px){.review-card{flex:0 0 60%;}}
+  @media(min-width:1024px){.review-card{flex:0 0 32%;}}
+
+  .magnetic-wrap{display:inline-block;}
+  .magnetic-btn{transition:transform .3s cubic-bezier(.175,.885,.32,1.275),box-shadow .3s ease;will-change:transform;}
+
+  @keyframes subtleZoom{0%{transform:scale(1);}50%{transform:scale(1.06);}100%{transform:scale(1);}}
+  .hero-bg-anim{animation:subtleZoom 20s infinite ease-in-out;}
+
+  /* Movimiento extra continuo a los iconos de valores */
+  @keyframes floatY { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-5px);} }
+  .float-anim { animation: floatY 3.5s ease-in-out infinite; }
+
+  @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 15px rgba(126,217,87,.3); } 50% { box-shadow: 0 0 30px rgba(126,217,87,.7); } }
+  .glow-pulse { animation: glowPulse 2.5s infinite; }
+
+  .cta-huge{font-size:clamp(2.4rem,9vw,7.5rem);line-height:.95;}
+
+  @media (prefers-reduced-motion: reduce){
+    .tape-inner{animation:none;} .hero-bg-anim{animation:none;} .word-stagger span{animation:none;opacity:1;transform:none;} .float-anim{animation:none;} .glow-pulse{animation:none;}
+  }
+</style>
 </head>
-<body class="antialiased selection:bg-electric selection:text-black">
+<body class="antialiased selection:bg-neon selection:text-black">
 
-    <div class="fixed inset-0 tech-grid pointer-events-none z-0"></div>
+<!-- CINTA SUPERIOR ARREGLADA CON BUCLE PERFECTO -->
+<div class="tape py-2.5 relative z-40">
+  <div class="tape-inner text-neon font-bold text-[11px] md:text-xs uppercase tracking-widest pl-4">
+    <span>Obra Nueva</span><span class="tape-dot"></span>
+    <span>Reformas Llave en Mano</span><span class="tape-dot"></span>
+    <span>Interiorismo</span><span class="tape-dot"></span>
+    <span>Para los más exigentes</span><span class="tape-dot"></span>
+  </div>
+  <div class="tape-inner text-neon font-bold text-[11px] md:text-xs uppercase tracking-widest pl-4">
+    <span>Obra Nueva</span><span class="tape-dot"></span>
+    <span>Reformas Llave en Mano</span><span class="tape-dot"></span>
+    <span>Interiorismo</span><span class="tape-dot"></span>
+    <span>Para los más exigentes</span><span class="tape-dot"></span>
+  </div>
+  <div class="tape-inner text-neon font-bold text-[11px] md:text-xs uppercase tracking-widest pl-4">
+    <span>Obra Nueva</span><span class="tape-dot"></span>
+    <span>Reformas Llave en Mano</span><span class="tape-dot"></span>
+    <span>Interiorismo</span><span class="tape-dot"></span>
+    <span>Para los más exigentes</span><span class="tape-dot"></span>
+  </div>
+</div>
 
-    <div class="bg-solar text-black text-center py-2 px-4 text-xs md:text-sm font-tech font-bold uppercase tracking-wider relative z-50 flex items-center justify-center gap-2">
-        <i data-lucide="zap" class="w-4 h-4 fill-black"></i>
-        <span>¿Avería eléctrica urgente en Ávila? Llámanos ahora: </span>
-        <a href="tel:+34123456789" class="underline hover:no-underline ml-1">123 456 789</a>
-    </div>
-
-    <nav class="sticky w-full z-40 top-0 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
-            <div class="bg-techgray/80 backdrop-blur-md border border-electric/20 rounded-2xl px-5 py-3 md:px-6 md:py-4 flex justify-between items-center shadow-lg transition-all">
-                <a href="#" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-full bg-techblack border border-electric flex items-center justify-center group-hover:shadow-glow-electric transition-all">
-                        <i data-lucide="zap" class="w-5 h-5 text-electric fill-electric"></i>
-                    </div>
-                    <span class="font-tech font-bold text-lg tracking-wider uppercase text-white">Electro<span class="text-electric">Avagon</span></span>
-                </a>
-                
-                <div class="hidden md:flex space-x-8 text-sm font-tech font-semibold tracking-widest uppercase text-gray-400">
-                    <a href="#fotovoltaica" class="hover:text-electric transition-colors">Fotovoltaica</a>
-                    <a href="#servicios" class="hover:text-electric transition-colors">Servicios</a>
-                    <a href="#tecnologia" class="hover:text-electric transition-colors">Tecnología</a>
-                </div>
-
-                <div class="hidden md:block magnetic-wrap">
-                    <a href="#contacto" class="magnetic-btn bg-electric/10 text-electric border border-electric px-6 py-2 rounded-lg font-tech font-bold uppercase text-sm hover:bg-electric hover:text-black transition-all">
-                        Presupuesto
-                    </a>
-                </div>
-
-                <button id="mobile-menu-btn" class="md:hidden text-electric focus:outline-none p-2">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <div id="mobile-menu" class="fixed inset-0 bg-techblack/95 backdrop-blur-xl z-50 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
-        <div class="flex flex-col items-center space-y-8 text-2xl font-tech font-bold uppercase tracking-widest text-white">
-            <a href="#fotovoltaica" class="mobile-link hover:text-electric">Fotovoltaica</a>
-            <a href="#servicios" class="mobile-link hover:text-electric">Servicios</a>
-            <a href="#tecnologia" class="mobile-link hover:text-electric">Tecnología</a>
-            <a href="#contacto" class="mobile-link text-techblack bg-electric px-8 py-3 rounded-lg shadow-glow-electric mt-4">Contactar</a>
-        </div>
-    </div>
-
-    <section class="relative min-h-[90vh] flex items-center justify-center pt-10 pb-20 overflow-hidden z-10">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&q=80" alt="Paneles Solares" class="w-full h-full object-cover opacity-30">
-            <div class="absolute inset-0 bg-gradient-to-b from-techblack/60 via-techblack/80 to-techblack"></div>
-        </div>
-
-        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-electric/30 bg-electric/10 backdrop-blur-sm mb-8 reveal">
-                <span class="w-2 h-2 rounded-full bg-electric animate-ping"></span>
-                <span class="text-electric text-[10px] md:text-xs font-tech font-bold uppercase tracking-widest">Ávila y alrededores</span>
-            </div>
-            
-            <h1 class="text-5xl sm:text-6xl md:text-7xl font-tech font-black uppercase leading-tight mb-6 reveal delay-100 tracking-tight">
-                Toma el control de <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-electric to-emerald-200">Tu Energía</span>
-            </h1>
-            
-            <p class="text-base md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto reveal delay-200">
-                Expertos en instalaciones fotovoltaicas y soluciones eléctricas. Transiciónate al autoconsumo, genera tu propia luz y ahorra desde el primer día con la mejor tecnología.
-            </p>
-            
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal delay-300">
-                <div class="magnetic-wrap w-full sm:w-auto">
-                    <a href="#contacto" class="magnetic-btn w-full sm:w-auto flex items-center justify-center gap-3 bg-electric text-black px-8 py-4 rounded-xl font-tech font-bold uppercase tracking-wide hover:shadow-glow-electric-strong transition-all duration-300">
-                        <i data-lucide="sun" class="w-5 h-5"></i>
-                        Estudio Solar Gratuito
-                    </a>
-                </div>
-                <div class="magnetic-wrap w-full sm:w-auto">
-                    <a href="tel:+34123456789" class="magnetic-btn w-full sm:w-auto flex items-center justify-center gap-3 border border-solar/50 text-solar bg-solar/5 px-8 py-4 rounded-xl font-tech font-bold uppercase tracking-wide hover:bg-solar hover:text-black hover:shadow-glow-solar transition-all duration-300">
-                        <i data-lucide="zap" class="w-5 h-5"></i>
-                        Reparar Avería
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="py-12 border-y border-white/5 bg-techgray/30 backdrop-blur-sm relative z-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-white/10">
-                <div class="flex flex-col items-center pt-4 md:pt-0 reveal">
-                    <i data-lucide="shield-check" class="w-10 h-10 text-electric mb-3"></i>
-                    <h3 class="font-tech font-bold uppercase text-sm mb-1">Instaladores Autorizados</h3>
-                    <p class="text-xs text-gray-500">Certificación y seguridad legal.</p>
-                </div>
-                <div class="flex flex-col items-center pt-8 md:pt-0 reveal delay-100">
-                    <i data-lucide="cpu" class="w-10 h-10 text-electric mb-3"></i>
-                    <h3 class="font-tech font-bold uppercase text-sm mb-1">Tecnología de Vanguardia</h3>
-                    <p class="text-xs text-gray-500">Inversores y paneles top ventas.</p>
-                </div>
-                <div class="flex flex-col items-center pt-8 md:pt-0 reveal delay-200">
-                    <i data-lucide="trending-down" class="w-10 h-10 text-electric mb-3"></i>
-                    <h3 class="font-tech font-bold uppercase text-sm mb-1">Ahorro Garantizado</h3>
-                    <p class="text-xs text-gray-500">Amortización rápida de inversión.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="servicios" class="py-24 relative z-10">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="mb-16">
-                <h2 class="text-3xl md:text-5xl font-tech font-black uppercase tracking-tight mb-4 reveal">
-                    Nuestras <span class="text-electric">Soluciones</span>
-                </h2>
-                <p class="text-gray-400 reveal delay-100">Dominamos tanto la energía del futuro como la electricidad tradicional.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="tech-card rounded-2xl p-8 reveal">
-                    <div class="w-14 h-14 rounded-lg bg-electric/10 flex items-center justify-center mb-6 border border-electric/30">
-                        <i data-lucide="sun-medium" class="w-7 h-7 text-electric"></i>
-                    </div>
-                    <h3 class="text-xl font-tech font-bold uppercase mb-3">Energía Fotovoltaica</h3>
-                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">
-                        Instalaciones aisladas y de red. Configuramos inversores de última generación (Huawei, etc.) para máxima eficiencia.
-                    </p>
-                    <ul class="space-y-2 text-xs font-semibold text-gray-300">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-electric"></i> Paneles solares</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-electric"></i> Baterías de almacenamiento</li>
-                    </ul>
-                </div>
-
-                <div class="tech-card rounded-2xl p-8 reveal delay-100">
-                    <div class="w-14 h-14 rounded-lg bg-electric/10 flex items-center justify-center mb-6 border border-electric/30">
-                        <i data-lucide="plug-2" class="w-7 h-7 text-electric"></i>
-                    </div>
-                    <h3 class="text-xl font-tech font-bold uppercase mb-3">Instalaciones Eléctricas</h3>
-                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">
-                        Soluciones para obra nueva, reformas integrales y actualizaciones de cuadros eléctricos bajo normativa.
-                    </p>
-                    <ul class="space-y-2 text-xs font-semibold text-gray-300">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-electric"></i> Cableado estructurado</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-electric"></i> Iluminación LED</li>
-                    </ul>
-                </div>
-
-                <div class="tech-card rounded-2xl p-8 reveal delay-200 border-solar/30">
-                    <div class="w-14 h-14 rounded-lg bg-solar/10 flex items-center justify-center mb-6 border border-solar/50">
-                        <i data-lucide="triangle-alert" class="w-7 h-7 text-solar"></i>
-                    </div>
-                    <h3 class="text-xl font-tech font-bold uppercase mb-3">Averías y Mantenimiento</h3>
-                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">
-                        Detección rápida de cortocircuitos, fallos en inversores solares y reparaciones urgentes para que no te quedes sin luz.
-                    </p>
-                    <ul class="space-y-2 text-xs font-semibold text-gray-300">
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-solar"></i> Servicio Rápido</li>
-                        <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-solar"></i> Diagnóstico de inversores</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="tecnologia" class="py-24 relative z-10 border-y border-white/5 bg-techgray/50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div class="reveal">
-                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-electric/30 bg-electric/10 mb-6">
-                        <i data-lucide="lightbulb" class="w-4 h-4 text-electric"></i>
-                        <span class="text-electric text-xs font-tech font-bold uppercase tracking-widest">Transparencia Total</span>
-                    </div>
-                    <h2 class="text-3xl md:text-5xl font-tech font-black uppercase tracking-tight mb-6 leading-tight">
-                        Tecnología <span class="text-electric">Sin Secretos</span>
-                    </h2>
-                    <p class="text-gray-400 mb-6 leading-relaxed">
-                        No instales a ciegas. A diferencia de otras empresas, en Electro Avagon te explicamos paso a paso tu instalación. 
-                    </p>
-                    <p class="text-gray-400 mb-8 leading-relaxed">
-                        ¿Cómo funciona una instalación aislada? ¿Qué significa la luz de tu inversor Huawei? Queremos que entiendas exactamente cómo tu casa genera energía y cómo estás ahorrando dinero.
-                    </p>
-                    <a href="https://instagram.com/electroavagon" target="_blank" class="inline-flex items-center gap-3 text-electric font-tech font-bold uppercase text-sm hover:text-white transition-colors">
-                        Ver nuestros tutoriales en Instagram <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </a>
-                </div>
-                <div class="relative reveal delay-100 h-[400px] rounded-2xl overflow-hidden border border-white/10 group">
-                    <img src="https://images.unsplash.com/photo-1592833159155-c62df1b65634?auto=format&fit=crop&q=80" alt="Instalación Inversor Solar" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-techblack/80 via-transparent to-electric/20 mix-blend-multiply"></div>
-                    
-                    <div class="absolute bottom-6 left-6 bg-techblack/90 backdrop-blur border border-electric/30 p-4 rounded-xl flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full border-[3px] border-electric border-t-transparent animate-spin"></div>
-                        <div>
-                            <div class="text-xs text-electric font-tech uppercase">Rendimiento Sistema</div>
-                            <div class="text-xl font-bold font-tech">98.5% Eficiencia</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contacto" class="py-24 relative z-10">
-        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-electric/5 via-techblack to-techblack pointer-events-none"></div>
-        
-        <div class="max-w-4xl mx-auto px-6 relative z-10">
-            <div class="text-center mb-12 reveal">
-                <h2 class="text-3xl md:text-5xl font-tech font-black uppercase tracking-tight mb-4">
-                    Inicia tu <span class="text-electric">Transición</span>
-                </h2>
-                <p class="text-gray-400">Pide tu presupuesto para energía solar o consúltanos tus averías eléctricas.</p>
-            </div>
-
-            <div class="bg-techgray/80 backdrop-blur-xl border border-electric/20 p-8 md:p-12 rounded-3xl reveal delay-100 shadow-2xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-64 h-64 bg-electric/10 rounded-full blur-[80px] pointer-events-none"></div>
-                
-                <form id="wa-form" class="relative z-10 flex flex-col gap-6">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-xs font-tech font-bold uppercase tracking-widest text-gray-400 mb-2">Nombre / Empresa</label>
-                            <input type="text" id="nombre" required class="w-full bg-techblack/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-tech font-bold uppercase tracking-widest text-gray-400 mb-2">Motivo de contacto</label>
-                            <select id="servicio" required class="w-full bg-techblack/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all appearance-none">
-                                <option value="" disabled selected>Selecciona una opción...</option>
-                                <option value="Instalación Fotovoltaica">Instalación Fotovoltaica (Placas)</option>
-                                <option value="Avería Inversor/Batería">Avería Inversor/Batería Solar</option>
-                                <option value="Avería Eléctrica General">Avería Eléctrica General</option>
-                                <option value="Instalación Eléctrica Nueva">Instalación Eléctrica Nueva</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-tech font-bold uppercase tracking-widest text-gray-400 mb-2">Describe tu proyecto o avería</label>
-                        <textarea id="mensaje" required rows="4" class="w-full bg-techblack/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-electric focus:ring-1 focus:ring-electric transition-all resize-none" placeholder="Ej: Me gustaría un estudio para poner placas en un tejado en Ávila..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="w-full bg-electric text-black font-tech font-bold uppercase tracking-widest py-4 rounded-xl hover:shadow-glow-electric transition-all duration-300 flex items-center justify-center gap-2 mt-4">
-                        <i data-lucide="send" class="w-5 h-5"></i>
-                        Enviar solicitud al WhatsApp
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-techgray border-t border-white/5 pt-16 pb-8 relative z-10">
-        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 reveal">
-            <div>
-                <a href="#" class="flex items-center gap-2 mb-4">
-                    <i data-lucide="zap" class="w-6 h-6 text-electric fill-electric"></i>
-                    <span class="font-tech font-bold text-xl tracking-wider uppercase text-white">Electro<span class="text-electric">Avagon</span></span>
-                </a>
-                <p class="text-gray-400 text-sm mb-6 max-w-sm">
-                    Soluciones eléctricas y solares. Transparencia, calidad técnica y tecnología de vanguardia para Ávila y alrededores.
-                </p>
-                <div class="flex gap-4">
-                    <a href="https://instagram.com/electroavagon" target="_blank" class="w-10 h-10 rounded-lg bg-techblack border border-white/10 flex items-center justify-center hover:bg-electric hover:text-black hover:border-electric transition-all">
-                        <i data-lucide="instagram" class="w-5 h-5"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div>
-                <h4 class="text-white font-tech font-bold uppercase tracking-widest text-sm mb-6">Servicios</h4>
-                <ul class="space-y-3 text-gray-400 text-sm">
-                    <li><a href="#" class="hover:text-electric transition-colors">Energía Fotovoltaica</a></li>
-                    <li><a href="#" class="hover:text-electric transition-colors">Instalaciones Aisladas</a></li>
-                    <li><a href="#" class="hover:text-electric transition-colors">Electricidad General</a></li>
-                    <li><a href="#" class="hover:text-electric transition-colors">Reparación de Averías</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="text-white font-tech font-bold uppercase tracking-widest text-sm mb-6">Contacto Directo</h4>
-                <ul class="space-y-4 text-gray-400 text-sm">
-                    <li>
-                        <a href="tel:+34123456789" class="flex items-center gap-3 hover:text-electric transition-colors">
-                            <i data-lucide="phone" class="w-4 h-4 text-electric"></i>
-                            +34 123 456 789
-                        </a>
-                    </li>
-                    <li>
-                        <a href="mailto:info@electroavagon.com" class="flex items-center gap-3 hover:text-electric transition-colors">
-                            <i data-lucide="mail" class="w-4 h-4 text-electric"></i>
-                            info@electroavagon.com
-                        </a>
-                    </li>
-                    <li class="flex items-start gap-3">
-                        <i data-lucide="map-pin" class="w-4 h-4 text-electric mt-1"></i>
-                        <span>Servicio en Ávila y alrededores.</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-6 border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-tech font-bold uppercase tracking-widest text-gray-600 reveal delay-100">
-            <div>© 2026 Electro Avagon. Todos los derechos reservados.</div>
-            <div class="flex gap-4">
-                <a href="#" class="hover:text-white transition-colors">Privacidad</a>
-                <a href="#" class="hover:text-white transition-colors">Aviso Legal</a>
-            </div>
-        </div>
-    </footer>
-
-    <a href="https://wa.me/34123456789" target="_blank" class="fixed bottom-6 right-6 z-[60] bg-[#25D366] text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-        <i data-lucide="message-circle" class="w-8 h-8"></i>
+<!-- NAV -->
+<nav class="sticky top-0 z-40 bg-darker/90 backdrop-blur-md border-b border-white/10" id="navbar">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 md:h-20 flex justify-between items-center">
+    <a href="#" class="flex items-center gap-2 group">
+      <i data-lucide="home" class="w-5 h-5 md:w-6 md:h-6 text-neon group-hover:rotate-12 transition-transform"></i>
+      <span class="font-black text-sm md:text-lg tracking-wider uppercase">Reformas<span class="text-neon">TuHogar</span></span>
     </a>
+    <div class="hidden md:flex space-x-8 text-xs font-bold tracking-widest uppercase text-gray-300">
+      <a href="#servicios" class="hover:text-neon transition-colors">Servicios</a>
+      <a href="#nosotros" class="hover:text-neon transition-colors">Nosotros</a>
+      <a href="#proyectos" class="hover:text-neon transition-colors">Proyectos</a>
+      <a href="#resenas" class="hover:text-neon transition-colors">Reseñas</a>
+      <a href="#reserva" class="hover:text-neon transition-colors">Reserva</a>
+    </div>
+    <div class="hidden md:flex items-center gap-4">
+      <a href="https://instagram.com/reformas_tu_hogar66" target="_blank" aria-label="Instagram" class="w-9 h-9 rounded-full bg-graydark border border-white/10 flex items-center justify-center hover:bg-neon hover:text-black hover:border-neon transition-all hover:-translate-y-1">
+        <i data-lucide="instagram" class="w-4 h-4"></i>
+      </a>
+      <div class="magnetic-wrap">
+        <a href="https://wa.me/34623111590" target="_blank" class="magnetic-btn bg-neon text-black px-5 py-2 rounded-full font-black uppercase text-xs hover:shadow-neon transition-all glow-pulse">Presupuesto</a>
+      </div>
+    </div>
+    <button id="mobile-menu-btn" class="md:hidden text-white p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+  </div>
+</nav>
 
-    <script>
-        lucide.createIcons();
+<div id="mobile-menu" class="fixed inset-0 bg-darker/97 backdrop-blur-xl z-50 flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300">
+  <div class="flex flex-col items-center space-y-7 text-xl font-black uppercase tracking-widest">
+    <a href="#servicios" class="mobile-link hover:text-neon">Servicios</a>
+    <a href="#nosotros" class="mobile-link hover:text-neon">Nosotros</a>
+    <a href="#proyectos" class="mobile-link hover:text-neon">Proyectos</a>
+    <a href="#resenas" class="mobile-link hover:text-neon">Reseñas</a>
+    <a href="#reserva" class="mobile-link hover:text-neon">Reserva</a>
+    <div class="flex items-center gap-4 pt-2">
+      <a href="https://instagram.com/reformas_tu_hogar66" target="_blank" aria-label="Instagram" class="mobile-link w-11 h-11 rounded-full bg-graydark border border-white/10 flex items-center justify-center hover:bg-neon hover:text-black hover:border-neon transition-all">
+        <i data-lucide="instagram" class="w-5 h-5"></i>
+      </a>
+      <a href="https://wa.me/34623111590" target="_blank" class="mobile-link text-neon border-2 border-neon px-6 py-3 rounded-full text-sm glow-pulse">Contactar</a>
+    </div>
+  </div>
+</div>
 
-        // Scroll Reveal
-        const reveals = document.querySelectorAll('.reveal');
-        const observer = new IntersectionObserver((entries, obs) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    obs.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-        reveals.forEach(el => observer.observe(el));
+<!-- HERO SIN EL CORTE NEGRO -->
+<section id="hero-section" class="relative overflow-hidden">
+  <div class="relative min-h-[78vh] lg:min-h-[92vh] flex items-end pb-20 lg:pb-24">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80" alt="Casa moderna" class="w-full h-full object-cover hero-bg-anim opacity-45">
+      <div class="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-black/30"></div>
+    </div>
+    <div class="relative z-10 max-w-7xl mx-auto px-5 md:px-8 w-full">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-neon/30 bg-neon/10 mb-6 reveal">
+        <span class="w-2 h-2 rounded-full bg-neon animate-pulse"></span>
+        <span class="text-neon text-[10px] md:text-xs font-bold uppercase tracking-widest">Para los más exigentes</span>
+      </div>
+      <h1 class="word-stagger font-black uppercase tracking-tighter mb-6" style="font-size:clamp(2.6rem,8vw,6.2rem);line-height:.98;">
+        <span style="animation-delay:.05s">Construimos</span> <span style="animation-delay:.15s" class="text-transparent bg-clip-text bg-gradient-to-r from-neon to-green-300">el</span>
+        <span style="animation-delay:.25s" class="text-transparent bg-clip-text bg-gradient-to-r from-neon to-green-300">hogar</span><br>
+        <span style="animation-delay:.35s">de</span> <span style="animation-delay:.45s">tus</span> <span style="animation-delay:.55s">sueños.</span>
+      </h1>
+      <p class="text-gray-300 text-base md:text-xl max-w-2xl mb-10 reveal delay-300 font-medium">Construcción y reformas llave en mano para los más exigentes. Obra nueva con solidez y futuro.</p>
+      <div class="flex flex-col sm:flex-row gap-3 sm:gap-4 reveal delay-400">
+        <div class="magnetic-wrap w-full sm:w-auto">
+          <a href="https://wa.me/34623111590" target="_blank" class="magnetic-btn w-full sm:w-auto flex items-center justify-center gap-2.5 bg-neon text-black px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-black uppercase tracking-wide text-sm sm:text-base transition-shadow glow-pulse">
+            <i data-lucide="message-circle" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i> <span>Hacer realidad mi proyecto</span>
+          </a>
+        </div>
+        <div class="magnetic-wrap w-full sm:w-auto">
+          <a href="mailto:macarpehogar@gmail.com" class="magnetic-btn w-full sm:w-auto flex items-center justify-center gap-2.5 border-2 border-white/25 hover:border-neon px-6 py-3.5 sm:px-8 sm:py-4 rounded-full font-black uppercase tracking-wide text-sm sm:text-base hover:bg-neon/10 transition-colors">
+            <i data-lucide="mail" class="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"></i> <span>Enviar correo</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        // Magnetic Buttons (Desktop)
-        if (window.innerWidth >= 768) {
-            const magnetics = document.querySelectorAll('.magnetic-btn');
-            magnetics.forEach(btn => {
-                btn.addEventListener('mousemove', function(e) {
-                    const rect = this.getBoundingClientRect();
-                    const x = (e.clientX - rect.left - rect.width/2) * 0.2;
-                    const y = (e.clientY - rect.top - rect.height/2) * 0.2;
-                    this.style.transform = `translate(${x}px, ${y}px)`;
-                });
-                btn.addEventListener('mouseleave', function() {
-                    this.style.transform = `translate(0px, 0px)`;
-                });
-            });
+<!-- VALORES -->
+<section id="valores" class="py-14 md:py-16 bg-darker border-b border-white/5 relative overflow-x-auto">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="flex gap-6 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 lg:gap-4 overflow-x-auto sm:overflow-visible pb-2 sm:pb-0">
+      <div class="flex items-center gap-4 flex-shrink-0 reveal">
+        <div class="w-14 h-14 rounded-2xl bg-graydark border border-white/10 flex items-center justify-center flex-shrink-0 float-anim" style="animation-delay: 0s;"><i data-lucide="pen-tool" class="w-6 h-6 text-neon"></i></div>
+        <h3 class="font-bold uppercase tracking-wide text-xs md:text-sm whitespace-nowrap md:whitespace-normal">Diseño y<br class="hidden md:block"> Planificación</h3>
+      </div>
+      <div class="flex items-center gap-4 flex-shrink-0 reveal delay-100">
+        <div class="w-14 h-14 rounded-2xl bg-graydark border border-white/10 flex items-center justify-center flex-shrink-0 float-anim" style="animation-delay: 0.2s;"><i data-lucide="hard-hat" class="w-6 h-6 text-neon"></i></div>
+        <h3 class="font-bold uppercase tracking-wide text-xs md:text-sm whitespace-nowrap md:whitespace-normal">Construcción<br class="hidden md:block"> de Calidad</h3>
+      </div>
+      <div class="flex items-center gap-4 flex-shrink-0 reveal delay-200">
+        <div class="w-14 h-14 rounded-2xl bg-graydark border border-white/10 flex items-center justify-center flex-shrink-0 float-anim" style="animation-delay: 0.4s;"><i data-lucide="settings" class="w-6 h-6 text-neon"></i></div>
+        <h3 class="font-bold uppercase tracking-wide text-xs md:text-sm whitespace-nowrap md:whitespace-normal">Soluciones<br class="hidden md:block"> a Medida</h3>
+      </div>
+      <div class="flex items-center gap-4 flex-shrink-0 reveal delay-300">
+        <div class="w-14 h-14 rounded-2xl bg-graydark border border-white/10 flex items-center justify-center flex-shrink-0 float-anim" style="animation-delay: 0.6s;"><i data-lucide="shield-check" class="w-6 h-6 text-neon"></i></div>
+        <h3 class="font-bold uppercase tracking-wide text-xs md:text-sm whitespace-nowrap md:whitespace-normal">Compromiso<br class="hidden md:block"> y Garantía</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios" class="py-20 md:py-32 bg-darker relative">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="mb-10 md:mb-16 reveal">
+      <span class="text-neon text-xs font-black uppercase tracking-widest">Servicios Premium</span>
+      <h2 class="font-black uppercase tracking-tighter mt-3" style="font-size:clamp(2rem,5vw,4rem);">Lo que hacemos</h2>
+    </div>
+
+    <div class="svc-row group py-8 md:py-10 reveal" data-target="d1">
+      <div class="flex items-center justify-between gap-6">
+        <div class="flex items-center gap-6 md:gap-10">
+          <span class="svc-num font-black text-3xl md:text-6xl">01</span>
+          <h3 class="text-xl md:text-4xl font-black uppercase tracking-tight">Obra Nueva</h3>
+        </div>
+        <i data-lucide="arrow-up-right" class="svc-arrow w-6 h-6 md:w-9 md:h-9 text-neon flex-shrink-0"></i>
+      </div>
+      <p class="text-gray-400 mt-4 md:mt-5 md:ml-24 max-w-2xl text-sm md:text-base">Construcción desde cero. Creamos estructuras sólidas con visión de futuro, utilizando los mejores materiales del mercado.</p>
+    </div>
+
+    <div class="svc-row group py-8 md:py-10 reveal delay-100">
+      <div class="flex items-center justify-between gap-6">
+        <div class="flex items-center gap-6 md:gap-10">
+          <span class="svc-num font-black text-3xl md:text-6xl">02</span>
+          <h3 class="text-xl md:text-4xl font-black uppercase tracking-tight">Llave en Mano</h3>
+        </div>
+        <i data-lucide="arrow-up-right" class="svc-arrow w-6 h-6 md:w-9 md:h-9 text-neon flex-shrink-0"></i>
+      </div>
+      <p class="text-gray-400 mt-4 md:mt-5 md:ml-24 max-w-2xl text-sm md:text-base">Reformas integrales donde nos encargamos de absolutamente todo el proceso, para que tú solo disfrutes del resultado final.</p>
+    </div>
+
+    <div class="svc-row group py-8 md:py-10 reveal delay-200">
+      <div class="flex items-center justify-between gap-6">
+        <div class="flex items-center gap-6 md:gap-10">
+          <span class="svc-num font-black text-3xl md:text-6xl">03</span>
+          <h3 class="text-xl md:text-4xl font-black uppercase tracking-tight">Interiorismo</h3>
+        </div>
+        <i data-lucide="arrow-up-right" class="svc-arrow w-6 h-6 md:w-9 md:h-9 text-neon flex-shrink-0"></i>
+      </div>
+      <p class="text-gray-400 mt-4 md:mt-5 md:ml-24 max-w-2xl text-sm md:text-base">Diseño de espacios únicos y personalizados. Optimizamos cada rincón combinando estética moderna y máxima funcionalidad.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE NOSOTROS -->
+<section id="nosotros" class="py-20 md:py-32 bg-dark border-y border-white/5 relative overflow-hidden">
+  <div class="absolute -top-20 -left-20 w-72 h-72 bg-neon/10 rounded-full blur-[100px] pointer-events-none"></div>
+  <div class="max-w-7xl mx-auto px-5 md:px-8 relative">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="reveal">
+        <span class="text-neon text-xs font-black uppercase tracking-widest">Sobre nosotros</span>
+        <h2 class="font-black uppercase tracking-tighter mt-3 mb-6" style="font-size:clamp(2rem,4.5vw,3.6rem);line-height:1.05;">No somos una<br>constructora más.</h2>
+        <p class="text-gray-400 leading-relaxed mb-5 text-sm md:text-base">En <strong class="text-white">Reformas Tu Hogar</strong> trabajamos para los clientes más exigentes: los que quieren un proyecto llave en mano sin renunciar al control de cada detalle.</p>
+        <p class="text-gray-400 leading-relaxed mb-8 text-sm md:text-base">Diseño, construcción e interiorismo bajo un mismo equipo, con la solidez de una obra bien hecha y el acabado de un proyecto premium.</p>
+        <div class="grid grid-cols-3 gap-4 md:gap-8 border-t border-white/10 pt-6">
+          <div><div class="font-black text-neon text-2xl md:text-4xl" data-counter="80">0</div><div class="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mt-1">Proyectos entregados</div></div>
+          <div><div class="font-black text-neon text-2xl md:text-4xl" data-counter="12">0</div><div class="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mt-1">Años de experiencia</div></div>
+          <div><div class="font-black text-neon text-2xl md:text-4xl"><span data-counter="100">0</span>%</div><div class="text-[10px] md:text-xs uppercase tracking-widest text-gray-500 mt-1">Garantía en obra</div></div>
+        </div>
+      </div>
+      <div class="relative h-[320px] md:h-[440px] rounded-2xl overflow-hidden border border-white/10 reveal delay-100">
+        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80" alt="Equipo de construcción" class="w-full h-full object-cover opacity-85 hover:scale-105 transition-transform duration-700">
+        <div class="absolute inset-0 bg-gradient-to-tr from-black/80 via-transparent to-neon/15 mix-blend-multiply"></div>
+        <div class="absolute bottom-5 left-5 bg-darker/90 backdrop-blur border border-neon/30 px-4 py-3 rounded-xl flex items-center gap-3 float-anim">
+          <i data-lucide="shield-check" class="w-6 h-6 text-neon"></i>
+          <span class="text-xs font-black uppercase tracking-widest">Proyectos con garantía escrita</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROYECTOS -->
+<section id="proyectos" class="py-20 md:py-32 bg-dark relative">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 mb-10 md:mb-16">
+    <span class="text-neon text-xs font-black uppercase tracking-widest reveal">Proyectos</span>
+    <h2 class="font-black uppercase tracking-tighter mt-3 reveal delay-100" style="font-size:clamp(2rem,5vw,4rem);">Encaminados</h2>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="bleed-item h-[280px] md:h-[420px] reveal">
+      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Vivienda unifamiliar">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent flex flex-col justify-end p-6">
+        <span class="bleed-num" style="top:-2.4rem;left:1rem;">01</span>
+        <span class="text-neon font-black uppercase tracking-widest text-xs mb-1 relative">Obra Nueva</span>
+        <h3 class="text-lg md:text-xl font-black relative">Vivienda Unifamiliar</h3>
+      </div>
+    </div>
+    <div class="bleed-item h-[280px] md:h-[420px] reveal delay-100">
+      <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Salón moderno">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent flex flex-col justify-end p-6">
+        <span class="bleed-num" style="top:-2.4rem;left:1rem;">02</span>
+        <span class="text-neon font-black uppercase tracking-widest text-xs mb-1 relative">Reforma Integral</span>
+        <h3 class="text-lg md:text-xl font-black relative">Salón Moderno</h3>
+      </div>
+    </div>
+    <div class="bleed-item h-[280px] md:h-[420px] reveal delay-200">
+      <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Cocina premium">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent flex flex-col justify-end p-6">
+        <span class="bleed-num" style="top:-2.4rem;left:1rem;">03</span>
+        <span class="text-neon font-black uppercase tracking-widest text-xs mb-1 relative">Llave en Mano</span>
+        <h3 class="text-lg md:text-xl font-black relative">Cocina Premium</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEÑAS -->
+<section id="resenas" class="py-20 md:py-32 bg-darker border-y border-white/5">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 mb-10 md:mb-14">
+    <span class="text-neon text-xs font-black uppercase tracking-widest reveal">Reseñas</span>
+    <h2 class="font-black uppercase tracking-tighter mt-3 reveal delay-100" style="font-size:clamp(2rem,5vw,4rem);">Clientes exigentes,<br class="hidden md:block"> resultados a la altura.</h2>
+  </div>
+  <div class="review-track flex gap-5 overflow-x-auto px-5 md:px-8 max-w-7xl mx-auto pb-4">
+    <div class="review-card bg-graydark border border-white/10 rounded-2xl p-7 reveal">
+      <div class="flex gap-1 mb-4">
+        <i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i>
+      </div>
+      <p class="text-sm text-gray-300 leading-relaxed mb-6">"Construyeron nuestra vivienda desde cero. Plazos cumplidos y una calidad de acabados que no esperábamos por ese precio."</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon to-green-600 flex items-center justify-center font-black text-black text-sm">R</div>
+        <div><div class="text-sm font-bold">Rubén M.</div><div class="text-xs text-gray-500">Obra nueva</div></div>
+      </div>
+    </div>
+    <div class="review-card bg-graydark border border-white/10 rounded-2xl p-7 reveal delay-100">
+      <div class="flex gap-1 mb-4">
+        <i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i>
+      </div>
+      <p class="text-sm text-gray-300 leading-relaxed mb-6">"Reforma llave en mano de nuestro piso. No tuvimos que preocuparnos de nada, ellos coordinaron todos los oficios."</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon to-green-600 flex items-center justify-center font-black text-black text-sm">C</div>
+        <div><div class="text-sm font-bold">Carla D.</div><div class="text-xs text-gray-500">Reforma integral</div></div>
+      </div>
+    </div>
+    <div class="review-card bg-graydark border border-white/10 rounded-2xl p-7 reveal delay-200">
+      <div class="flex gap-1 mb-4">
+        <i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i><i data-lucide="star" class="w-4 h-4 text-neon fill-neon"></i>
+      </div>
+      <p class="text-sm text-gray-300 leading-relaxed mb-6">"El interiorismo de nuestra cocina quedó espectacular. Entendieron perfectamente lo que queríamos transmitir."</p>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-neon to-green-600 flex items-center justify-center font-black text-black text-sm">A</div>
+        <div><div class="text-sm font-bold">Andrés T.</div><div class="text-xs text-gray-500">Interiorismo</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVA -->
+<section id="reserva" class="py-20 md:py-28 bg-dark border-y border-white/5 relative overflow-hidden">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon/8 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="max-w-4xl mx-auto px-5 md:px-8 text-center relative">
+    <span class="text-neon text-xs font-black uppercase tracking-widest reveal">Sin esperas, sin llamadas</span>
+    <h2 class="font-black uppercase tracking-tighter mt-3 mb-5 reveal delay-100" style="font-size:clamp(2rem,4.5vw,3.6rem);line-height:1.05;">Reserva tu visita<br><span class="text-neon">técnica gratuita.</span></h2>
+    <p class="text-gray-400 max-w-xl mx-auto mb-10 reveal delay-200 text-sm md:text-base">Elige el día y la hora que mejor te venga. Se añade directamente a nuestro calendario y te llega confirmación al instante.</p>
+
+    <div class="magnetic-wrap reveal delay-300">
+      <button
+        onclick="Calendly.initPopupWidget({url: 'https://calendly.com/TU-USUARIO/visita-tecnica'});return false;"
+        class="magnetic-btn inline-flex items-center gap-3 bg-neon text-black px-8 py-4 rounded-full font-black uppercase tracking-wide hover:shadow-neon-strong transition-shadow glow-pulse">
+        <i data-lucide="calendar" class="w-5 h-5"></i> Reservar visita gratuita
+      </button>
+    </div>
+    <p class="text-gray-600 text-xs mt-6 reveal delay-300">* Sustituir <code class="text-gray-400">TU-USUARIO/visita-tecnica</code> por el enlace real de Calendly una vez conectado a Google Calendar.</p>
+  </div>
+</section>
+
+<section id="contacto" class="py-20 md:py-32 bg-darker relative">
+  <div class="max-w-7xl mx-auto px-5 md:px-8">
+    <div class="text-center mb-12 md:mb-16 reveal">
+      <span class="text-neon text-xs font-black uppercase tracking-widest">Contacto</span>
+      <h2 class="font-black uppercase tracking-tighter mt-3" style="font-size:clamp(2rem,5vw,4rem);">Solicita tu presupuesto</h2>
+      <p class="text-gray-400 font-medium mt-3">Rellena el formulario y te respondemos por WhatsApp al instante.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+      <div class="bg-graydark border border-white/10 p-6 md:p-10 rounded-2xl reveal relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-32 h-32 bg-neon/10 blur-[50px] rounded-full pointer-events-none"></div>
+        <form id="wa-form" class="relative z-10 flex flex-col gap-6">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Nombre completo</label>
+            <input type="text" id="wa-nombre" required class="w-full bg-darker border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon focus:ring-1 focus:ring-neon transition-all" placeholder="Ej. Juan Pérez">
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Tipo de proyecto</label>
+            <select id="wa-servicio" required class="w-full bg-darker border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon focus:ring-1 focus:ring-neon transition-all appearance-none">
+              <option value="" disabled selected>Selecciona una opción...</option>
+              <option value="Obra Nueva">Obra Nueva</option>
+              <option value="Reforma Integral">Reforma Integral</option>
+              <option value="Interiorismo">Interiorismo / Decoración</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Detalles del proyecto</label>
+            <textarea id="wa-mensaje" required rows="4" class="w-full bg-darker border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-neon focus:ring-1 focus:ring-neon transition-all resize-none" placeholder="Cuéntanos un poco sobre tu idea..."></textarea>
+          </div>
+          <button type="submit" class="w-full bg-neon text-black font-black uppercase tracking-widest py-4 rounded-lg hover:shadow-neon transition-all flex items-center justify-center gap-2 mt-2 glow-pulse">
+            <i data-lucide="send" class="w-5 h-5"></i> Enviar por WhatsApp
+          </button>
+        </form>
+      </div>
+      <div class="reveal delay-100 flex flex-col gap-6">
+        <div class="w-full h-56 md:h-full min-h-[260px] rounded-2xl overflow-hidden border border-white/10 relative">
+          <iframe src="https://www.google.com/maps?q=España&output=embed" class="absolute inset-0 w-full h-full border-0" style="filter:invert(90%) hue-rotate(180deg) contrast(100%);" loading="lazy"></iframe>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <a href="tel:+34623111590" class="bg-graydark border border-white/10 rounded-xl p-4 flex items-center gap-3 hover:border-neon transition-colors">
+            <i data-lucide="phone" class="w-5 h-5 text-neon"></i><span class="text-sm font-bold">623 11 15 90</span>
+          </a>
+          <a href="mailto:macarpehogar@gmail.com" class="bg-graydark border border-white/10 rounded-xl p-4 flex items-center gap-3 hover:border-neon transition-colors">
+            <i data-lucide="mail" class="w-5 h-5 text-neon"></i><span class="text-sm font-bold truncate">Correo</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL GIGANTE -->
+<section class="py-20 md:py-28 bg-dark border-t border-white/5 text-center relative overflow-hidden">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-neon/10 rounded-full blur-[120px] pointer-events-none"></div>
+  <div class="max-w-5xl mx-auto px-5 relative reveal">
+    <h2 class="cta-huge font-black uppercase tracking-tighter mb-8">Da el primer paso<br><span class="text-neon">hacia tu hogar.</span></h2>
+    <div class="magnetic-wrap">
+      <a href="https://wa.me/34623111590" target="_blank" class="magnetic-btn inline-flex items-center gap-3 bg-neon text-black px-10 py-5 rounded-full font-black uppercase tracking-wide text-lg hover:shadow-neon-strong transition-shadow glow-pulse">
+        <i data-lucide="message-circle" class="w-6 h-6"></i> Empezar mi proyecto
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="relative bg-darker pt-14 pb-8 border-t border-white/5">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 grid grid-cols-1 md:grid-cols-3 gap-10 mb-12 reveal">
+    <div>
+      <a href="#" class="flex items-center gap-2 mb-5">
+        <i data-lucide="home" class="w-6 h-6 text-neon"></i>
+        <span class="font-black text-lg tracking-wider uppercase">Reformas<span class="text-neon">TuHogar</span></span>
+      </a>
+      <p class="text-gray-400 text-sm max-w-sm mb-6 leading-relaxed">Construcción, obra nueva y reformas llave en mano para los más exigentes.</p>
+      <div class="flex gap-3">
+        <a href="https://instagram.com/reformas_tu_hogar66" target="_blank" class="w-10 h-10 rounded-full bg-graydark border border-white/10 flex items-center justify-center hover:bg-neon hover:text-black hover:border-neon transition-all hover:-translate-y-1"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+        <a href="https://wa.me/34623111590" target="_blank" class="w-10 h-10 rounded-full bg-graydark border border-white/10 flex items-center justify-center hover:bg-neon hover:text-black hover:border-neon transition-all hover:-translate-y-1"><i data-lucide="message-circle" class="w-4 h-4"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-5">Navegación</h4>
+      <ul class="space-y-3 text-gray-400 text-sm">
+        <li><a href="#servicios" class="hover:text-neon transition-colors">Servicios</a></li>
+        <li><a href="#nosotros" class="hover:text-neon transition-colors">Nosotros</a></li>
+        <li><a href="#proyectos" class="hover:text-neon transition-colors">Proyectos</a></li>
+        <li><a href="#resenas" class="hover:text-neon transition-colors">Reseñas</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white font-bold uppercase tracking-widest text-xs mb-5">Contacto</h4>
+      <ul class="space-y-3 text-gray-400 text-sm">
+        <li><a href="tel:+34623111590" class="flex items-center gap-3 hover:text-neon transition-colors"><i data-lucide="phone" class="w-4 h-4 text-neon"></i>623 11 15 90</a></li>
+        <li><a href="mailto:macarpehogar@gmail.com" class="flex items-center gap-3 hover:text-neon transition-colors"><i data-lucide="mail" class="w-4 h-4 text-neon"></i>macarpehogar@gmail.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-5 md:px-8 border-t border-white/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-3 text-[11px] font-bold uppercase tracking-widest text-gray-600 reveal delay-100">
+    <div>© 2026 Reformas Tu Hogar. Todos los derechos reservados.</div>
+    <div class="flex gap-4"><a href="#" class="hover:text-white">Aviso Legal</a><a href="#" class="hover:text-white">Privacidad</a></div>
+  </div>
+</footer>
+
+<!-- BOTÓN FLOTANTE WHASTAPP SIEMPRE ACTIVO -->
+<a href="https://wa.me/34623111590" target="_blank" class="fixed bottom-6 right-6 z-[60] bg-[#25D366] text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,.5)] hover:scale-110 flex items-center justify-center animate-bounce">
+  <i data-lucide="message-circle" class="w-8 h-8"></i>
+</a>
+
+<script>
+  lucide.createIcons();
+
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); obs.unobserve(entry.target); } });
+  }, { threshold: .15, rootMargin: "0px 0px -50px 0px" });
+  reveals.forEach(el => observer.observe(el));
+
+  const counters = document.querySelectorAll('[data-counter]');
+  const counterObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.getAttribute('data-counter'), 10);
+        const start = performance.now();
+        const duration = 1300;
+        function tick(now){
+          const p = Math.min((now-start)/duration, 1);
+          const eased = 1 - Math.pow(1-p, 3);
+          el.textContent = Math.floor(eased*target);
+          if (p < 1) requestAnimationFrame(tick); else el.textContent = target;
         }
+        requestAnimationFrame(tick);
+        obs.unobserve(el);
+      }
+    });
+  }, { threshold: .4 });
+  counters.forEach(el => counterObserver.observe(el));
 
-        // Navbar Glassmorphism
-        const navbar = document.getElementById('navbar');
-        const navInner = navbar.querySelector('div > div');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navInner.classList.replace('md:py-4', 'md:py-2');
-                navInner.classList.replace('bg-techgray/80', 'bg-techblack/90');
-            } else {
-                navInner.classList.replace('md:py-2', 'md:py-4');
-                navInner.classList.replace('bg-techblack/90', 'bg-techgray/80');
-            }
-        });
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('.magnetic-btn').forEach(btn => {
+      btn.addEventListener('mousemove', function(e){
+        const rect = this.getBoundingClientRect();
+        const x = (e.clientX - rect.left - rect.width/2) * .3;
+        const y = (e.clientY - rect.top - rect.height/2) * .3;
+        this.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', function(){ this.style.transform = 'translate(0,0)'; });
+    });
+  }
 
-        // Menú Móvil
-        const menuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const mobileLinks = document.querySelectorAll('.mobile-link');
-        let isMenuOpen = false;
+  document.querySelectorAll('.svc-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const isOpen = row.classList.contains('open');
+      document.querySelectorAll('.svc-row').forEach(r => r.classList.remove('open'));
+      if (!isOpen) { row.classList.add('open'); }
+    });
+  });
 
-        function toggleMenu() {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
-                document.body.style.overflow = 'hidden';
-            } else {
-                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
-                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-                document.body.style.overflow = '';
-            }
-        }
-        menuBtn.addEventListener('click', toggleMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = menuBtn.querySelector('i');
+  let isMenuOpen = false;
+  menuBtn.addEventListener('click', () => {
+    isMenuOpen = !isMenuOpen;
+    mobileMenu.classList.toggle('opacity-0');
+    mobileMenu.classList.toggle('pointer-events-none');
+    menuIcon.setAttribute('data-lucide', isMenuOpen ? 'x' : 'menu');
+    lucide.createIcons();
+  });
 
-        // Formulario WhatsApp
-        const waForm = document.getElementById('wa-form');
-        if(waForm) {
-            waForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const nombre = document.getElementById('nombre').value;
-                const servicio = document.getElementById('servicio').value;
-                const mensaje = document.getElementById('mensaje').value;
-                
-                const textoFinal = `⚡ ¡Hola Electro Avagon!\n\nSoy *${nombre}*.\nOs escribo por motivo de: *${servicio}*.\n\n*Mensaje:*\n${mensaje}`;
-                const url = `https://wa.me/34123456789?text=${encodeURIComponent(textoFinal)}`;
-                window.open(url, '_blank');
-            });
-        }
-    </script>
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  mobileLinks.forEach(l => l.addEventListener('click', () => {
+    isMenuOpen = false;
+    mobileMenu.classList.add('opacity-0');
+    mobileMenu.classList.add('pointer-events-none');
+    menuIcon.setAttribute('data-lucide', 'menu');
+    lucide.createIcons();
+  }));
+
+  const waForm = document.getElementById('wa-form');
+  if (waForm) {
+    waForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const nombre = document.getElementById('wa-nombre').value;
+      const servicio = document.getElementById('wa-servicio').value;
+      const mensaje = document.getElementById('wa-mensaje').value;
+      const texto = `¡Hola Reformas Tu Hogar! 👋\n\nSoy *${nombre}* y estoy interesado/a en un proyecto de *${servicio}*.\n\n*Detalles:*\n${mensaje}`;
+      window.open(`https://wa.me/34623111590?text=${encodeURIComponent(texto)}`, '_blank');
+    });
+  }
+</script>
 </body>
 </html>
